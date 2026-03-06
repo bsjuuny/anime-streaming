@@ -1,0 +1,76 @@
+{
+    "Navbar": {
+        "home": "Home",
+        "browse": "Browse",
+        "trending": "Trending",
+        "upcoming": "Upcoming",
+        "search": "Search anime..."
+    },
+    "Home": {
+        "trending": "Trending Now",
+        "topRated": "Top Rated All Time",
+        "upcoming": "Upcoming Next Season",
+        "viewAll": "View All",
+        "heroRank": "Popular #1",
+        "heroScore": "Score",
+        "heroTrailer": "Watch Trailer",
+        "heroDetail": "More Details"
+    },
+    "Card": {
+        "episodes": "{count} EPS",
+        "episodesUnknown": "TBA",
+        "genreUnknown": "Unknown",
+        "status": {
+            "FINISHED": "Finished",
+            "RELEASING": "Releasing",
+            "NOT_YET_RELEASED": "Upcoming",
+            "CANCELLED": "Cancelled",
+            "HIATUS": "Hiatus"
+        }
+    },
+    "Detail": {
+        "score": "Score",
+        "status": "Status",
+        "episodes": "Episodes",
+        "episodesUnknown": "TBA",
+        "studio": "Studio",
+        "studioUnknown": "Unknown",
+        "genres": "Genres",
+        "synopsis": "Synopsis",
+        "characters": "Characters & Voice Actors",
+        "recommended": "Recommended for You",
+        "not_found": "Anime not found.",
+        "noSynopsis": "No synopsis available.",
+        "watchTrailer": "Watch Trailer",
+        "status_values": {
+            "FINISHED": "Finished",
+            "RELEASING": "Releasing",
+            "NOT_YET_RELEASED": "Upcoming",
+            "CANCELLED": "Cancelled",
+            "HIATUS": "Hiatus"
+        },
+        "role": {
+            "main": "Main",
+            "supporting": "Supporting",
+            "background": "Background"
+        },
+        "voiceActor": "Voice Actor (JP)"
+    },
+    "Search": {
+        "title": "Browse Anime",
+        "searchResultTitle": "Search: \"{q}\"",
+        "results": "Results",
+        "no_results": "No anime found matching your criteria.",
+        "prev": "Previous",
+        "next": "Next",
+        "page": "Page",
+        "filters": {
+            "genres": "Genres",
+            "format": "Format",
+            "year": "Year",
+            "status": "Status",
+            "score": "Min Score",
+            "clear": "Clear Filters"
+        }
+    }
+}
