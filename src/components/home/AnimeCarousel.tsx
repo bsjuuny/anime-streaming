@@ -6,6 +6,7 @@ import { Navigation, A11y, Autoplay } from 'swiper/modules';
 import AnimeCard from '@/components/anime/AnimeCard';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -25,7 +26,13 @@ export default function AnimeCarousel({ title, animes, href = "/search" }: Anime
     }, []);
 
     return (
-        <section className="py-8 md:py-12 w-full">
+        <motion.section
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="py-8 md:py-12 w-full"
+        >
             <div className="container mx-auto px-4 md:px-8 xl:px-12 mb-6 flex justify-between items-end">
                 <h2 className="text-2xl md:text-3xl font-bold border-l-4 border-primary pl-4 text-foreground/90">
                     {title}
@@ -68,6 +75,6 @@ export default function AnimeCarousel({ title, animes, href = "/search" }: Anime
                     </Swiper>
                 )}
             </div>
-        </section>
+        </motion.section>
     );
 }

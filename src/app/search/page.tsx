@@ -7,7 +7,7 @@ import { searchAnime, AniListAnime } from '@/lib/api';
 import { translateText } from '@/lib/translator';
 import { getTmdbKoreanData } from '@/lib/tmdb';
 import Link from 'next/link';
-import { ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Loader2, Search } from 'lucide-react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { Suspense, useEffect, useState } from 'react';
@@ -73,8 +73,13 @@ function SearchContent() {
             </div>
 
             {isLoading ? (
-                <div className="flex items-center justify-center py-32">
-                    <Loader2 className="w-10 h-10 text-primary animate-spin" />
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6 w-full">
+                    {Array.from({ length: 15 }).map((_, i) => (
+                        <div key={i} className="animate-pulse bg-white/5 border border-white/5 rounded-xl aspect-[3/4] flex flex-col justify-end p-4">
+                            <div className="w-3/4 h-5 bg-white/10 rounded mb-2"></div>
+                            <div className="w-1/2 h-3 bg-white/10 rounded"></div>
+                        </div>
+                    ))}
                 </div>
             ) : result && result.media.length > 0 ? (
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6 w-full">
@@ -83,8 +88,12 @@ function SearchContent() {
                     ))}
                 </div>
             ) : (
-                <div className="text-center py-32 text-muted-foreground text-lg w-full">
-                    검색 결과가 없습니다.
+                <div className="flex flex-col items-center justify-center py-32 text-center w-full glass-panel rounded-2xl border-dashed">
+                    <div className="bg-white/5 p-6 rounded-full mb-6">
+                        <Search className="w-12 h-12 text-muted-foreground opacity-50" />
+                    </div>
+                    <h3 className="text-xl font-bold text-white mb-2">검색 결과가 없습니다</h3>
+                    <p className="text-slate-400">다른 검색어나 필터 조건으로 다시 찾아보세요.</p>
                 </div>
             )}
 

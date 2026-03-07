@@ -62,8 +62,8 @@ export default function AnimeCard({ anime }: { anime: AniListAnime }) {
                 </div>
 
                 {/* 하단 정보 */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background via-background/80 to-transparent pt-12">
-                    <h3 className="text-white font-bold text-lg line-clamp-1 mb-1 group-hover:text-primary transition-colors">
+                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background via-background/90 to-transparent pt-16">
+                    <h3 className="text-white font-bold text-base md:text-lg line-clamp-2 mb-2 group-hover:text-primary transition-colors leading-tight drop-shadow-md">
                         {displayTitle}
                     </h3>
                     <div className="flex items-center gap-3 text-xs text-white/70 opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">

@@ -61,7 +61,18 @@ const ANILIST_URL = 'https://graphql.anilist.co';
 
 const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
 
-async function fetchAniListAPI(query: string, variables: any = {}, retries = 3): Promise<any> {
+const cache = new Map<string, { data: any; timestamp: number }>();
+const CACHE_TTL = 1000 * 60 * 5; // 5 minutes
+
+async function fetchAniListAPI(query: string, variables: any = {}, retries = 5): Promise<any> {
+  const cacheKey = JSON.stringify({ query, variables });
+  const cached = cache.get(cacheKey);
+
+  // Return cached data if valid
+  if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+    return cached.data;
+  }
+
   const options = {
     method: 'POST',
     headers: {
@@ -72,25 +83,33 @@ async function fetchAniListAPI(query: string, variables: any = {}, retries = 3):
   };
 
   for (let i = 0; i < retries; i++) {
-    const response = await fetch(ANILIST_URL, options);
+    try {
+      const response = await fetch(ANILIST_URL, options);
 
-    if (response.ok) {
-      const data = await response.json();
-      return data.data;
+      if (response.ok) {
+        const data = await response.json();
+        // Save to cache
+        cache.set(cacheKey, { data: data.data, timestamp: Date.now() });
+        return data.data;
+      }
+
+      if (response.status === 429) {
+        const retryAfter = response.headers.get('Retry-After');
+        const delayMs = retryAfter ? parseInt(retryAfter, 10) * 1000 : Math.pow(2, i) * 1500;
+        console.warn(`[AniList API] Rate limited (429). Retrying in ${delayMs}ms... (Attempt ${i + 1}/${retries})`);
+        await delay(delayMs);
+        continue;
+      }
+
+      throw new Error(`AniList API Error: ${response.status} ${response.statusText}`);
+    } catch (error: any) {
+      if (i === retries - 1) throw error;
+      console.warn(`[AniList API] Fetch error: ${error.message}. Retrying... (Attempt ${i + 1}/${retries})`);
+      await delay(Math.pow(2, i) * 1000);
     }
-
-    if (response.status === 429) {
-      const retryAfter = response.headers.get('Retry-After');
-      const delayMs = retryAfter ? parseInt(retryAfter, 10) * 1000 : (i + 1) * 2000;
-      console.warn(`[AniList API] Rate limited. Retrying in ${delayMs}ms... (Attempt ${i + 1}/${retries})`);
-      await delay(delayMs);
-      continue;
-    }
-
-    throw new Error(`AniList API Error: ${response.status} ${response.statusText}`);
   }
 
-  throw new Error('AniList API Error: Maximum retries reached due to rate limiting.');
+  throw new Error('AniList API Error: Maximum retries reached due to rate limiting or network issues.');
 }
 
 export async function getTrendingAnime(): Promise<AniListAnime[]> {

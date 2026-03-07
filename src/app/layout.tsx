@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Outfit } from "next/font/google";
 import Providers from "@/components/providers";
 import "./globals.css";
 
@@ -8,9 +8,14 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
+const outfit = Outfit({
+  variable: "--font-outfit",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
-  title: "AnimeFinder - 애니메이션 탐색 및 스트리밍",
-  description: "트렌딩, 최고 평점, 예정 애니메이션을 탐색하세요. 최고의 애니메이션 대시보드.",
+  title: "AnimeFinder - 애니메이션 탐색",
+  description: "트렌딩, 최고 평점, 예정 애니메이션을 탐색하세요.",
 };
 
 export default function RootLayout({
@@ -20,7 +25,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className="dark" suppressHydrationWarning>
-      <body className={`${inter.variable} font-sans antialiased text-white bg-background selection:bg-primary/30`} suppressHydrationWarning>
+      <body className={`${inter.variable} ${outfit.variable} font-sans antialiased text-white bg-background selection:bg-primary/30`} suppressHydrationWarning>
         <Providers>
           {children}
         </Providers>
