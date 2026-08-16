@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google";
 import Providers from "@/components/providers";
+import CreditsFooter from "@/components/layout/CreditsFooter";
 import "./globals.css";
 
 const inter = Inter({
@@ -27,7 +28,10 @@ export default function RootLayout({
     <html lang="ko" className="dark" suppressHydrationWarning>
       <body className={`${inter.variable} ${outfit.variable} font-sans antialiased text-white bg-background selection:bg-primary/30`} suppressHydrationWarning>
         <Providers>
-          {children}
+          <div className="min-h-screen">
+            {children}
+          </div>
+          <CreditsFooter />
         </Providers>
       </body>
     </html>

@@ -4,7 +4,6 @@ import AnimeCarousel from '@/components/home/AnimeCarousel';
 import { getTrendingAnime, getTopRatedAnime, getUpcomingAnime, AniListAnime } from '@/lib/api';
 import { translateText } from '@/lib/translator';
 import { getTmdbKoreanData } from '@/lib/tmdb';
-import DonationPopup from '@/components/ui/DonationPopup';
 
 export const revalidate = 3600;
 
@@ -55,7 +54,6 @@ export default async function Home() {
         <AnimeCarousel title="역대 최고 평점작" animes={topRated} href="/search?score=8" />
         <AnimeCarousel title="다음 시즌 기대작" animes={upcoming} href="/search?status=NOT_YET_RELEASED" />
       </div>
-      <DonationPopup />
     </main>
   );
 }
