@@ -4,6 +4,7 @@ import AnimeCarousel from '@/components/home/AnimeCarousel';
 import { getTrendingAnime, getTopRatedAnime, getUpcomingAnime, AniListAnime } from '@/lib/api';
 import { translateText } from '@/lib/translator';
 import { getTmdbKoreanData } from '@/lib/tmdb';
+import { withBuildCache } from '@/lib/anilist-build-cache';
 
 export const revalidate = 3600;
 
@@ -20,9 +21,9 @@ async function translateAnimeData(anime: AniListAnime): Promise<AniListAnime> {
 
 export default async function Home() {
   const [trendingRaw, topRatedRaw, upcomingRaw] = await Promise.all([
-    getTrendingAnime(),
-    getTopRatedAnime(),
-    getUpcomingAnime()
+    withBuildCache('trending', getTrendingAnime),
+    withBuildCache('topRated', getTopRatedAnime),
+    withBuildCache('upcoming', getUpcomingAnime)
   ]);
 
   // Translate titles for all lists

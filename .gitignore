@@ -13,6 +13,9 @@ coverage
 out/
 build
 
+# local build-time fallback cache (see src/lib/anilist-build-cache.ts)
+.anilist-cache/
+
 # misc
 .DS_Store
 *.pem
